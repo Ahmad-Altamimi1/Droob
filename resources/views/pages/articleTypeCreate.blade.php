@@ -18,7 +18,7 @@
                             <div class="col-xl-10">
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium" for="">Image</label>
-                                    <input type="file" class="form-control" name="image" id="image">
+                                    <input required type="file" class="form-control" name="image" id="image">
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                                             <span class="input-group-text mdi mdi-certificate" id="mdi-account"></span>
                                         </div>
                                         <input type="text" class="form-control" name="type"
-                                            value="{{ old('type') }}">
+                                            value="{{ old('type') }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text mdi mdi-format-list-bulleted-type" id="basic-addon1"></span>
                                         </div>
-                                        <textarea rows="5" class="form-control" name="description">{{ old('description') }}</textarea>
+                                        <textarea required rows="5" class="form-control" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
                             </div>

@@ -6,13 +6,27 @@
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        @if (session('success'))
-                            <div class="alert alert-success">
+                             @if (session('success'))
+                            <div id="success-message" class="alert alert-success">
                                 {{ session('success') }}
+                            </div>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    // Set the duration in milliseconds (e.g., 5000 for 5 seconds)
+                                    var duration = 1000;
+
+                                    // Hide the success message after the specified duration
+                                    setTimeout(function() {
+                                        $("#success-message").fadeOut("fast");
+                                    }, duration);
+                                });
+                            </script>
                         @endif
                     </div>
                     <div
-                        class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
+                        class="bg-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
                         <h6 class="text-white text-capitalize ps-3">Article Table</h6>
                         <a href="{{ route('admin.articles.create') }}"><button class="btn btn-info" style="margin-right: 20px;">New
                                 Article</button></a>
@@ -44,20 +58,20 @@
                                 @foreach ($articles as $item)
                                     <tr>
                                         <td>
-                                            <div class="d-flex px-2 py-1">
+                                            <div class="d-flex px-2 py-3">
                                                 <div>
                                                     <img src="{{ asset('images/articles/' . $item->image1) }}"
-                                                        alt="{{ $item->title }}" width="50" height="50"
+                                                        alt="" width="50" height="50"
                                                         style="margin-right:10px;">
                                                 </div>
                                                 <div>
                                                     <img src="{{ asset('images/articles/' . $item->image2) }}"
-                                                        alt="{{ $item->title }}" width="50" height="50"
+                                                        alt="" width="50" height="50"
                                                         style="margin-right:10px;">
                                                 </div>
                                                 <div>
                                                     <img src="{{ asset('images/articles/' . $item->image3) }}"
-                                                        alt="{{ $item->title }}" width="50" height="50"
+                                                        alt="" width="50" height="50"
                                                         style="margin-right:10px;">
                                                 </div>
 
@@ -80,14 +94,14 @@
                                             <a href="{{ route('admin.articles.edit', $item->id) }}"
                                                 class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                                 data-original-title="Edit user">
-                                                <button class="btn btn-primary">Edit</button>
+                                                <button class="btn btn-primary" style="width: 90px">Edit</button>
                                             </a>
 
                                             <form action="{{ route('admin.articles.destroy', $item->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-danger " style="width: 90px">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

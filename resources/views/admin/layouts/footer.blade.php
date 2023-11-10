@@ -1,5 +1,7 @@
 <!-- Footer -->
-<footer class="footer mt-auto">
+<footer class="footer mt-auto" style="
+    display: none;
+">
     <div class="copyright bg-white">
         <p>
             &copy; <span id="copy-year"></span> Copyright Mono Dashboard Bootstrap Template by <a class="text-primary"

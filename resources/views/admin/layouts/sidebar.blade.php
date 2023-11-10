@@ -17,12 +17,12 @@
                         <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="">
+                {{-- <li class="">
                     <a class="sidenav-item-link" href="{{ route('admin.users.index') }}">
                         <i class="mdi mdi-account-group"></i>
                         <span class="nav-text">Users</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="">
                     <a class="sidenav-item-link" href="{{ route('admin.articleType.index') }}">
                         <i class="mdi mdi-certificate"></i>
@@ -36,33 +36,10 @@
                     </a>
                 </li>
              
-                <li class="section-title">
-                    Apps
-                </li>
-                <li>
-                    <a class="sidenav-item-link" href="chat.html">
-                        <i class="mdi mdi-wechat"></i>
-                        <span class="nav-text">Chat</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sidenav-item-link" href="contacts.html">
-                        <i class="mdi mdi-phone"></i>
-                        <span class="nav-text">Contacts</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sidenav-item-link" href="team.html">
-                        <i class="mdi mdi-account-group"></i>
-                        <span class="nav-text">Team</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sidenav-item-link" href="calendar.html">
-                        <i class="mdi mdi-calendar-check"></i>
-                        <span class="nav-text">Calendar</span>
-                    </a>
-                </li>
+               
+             
+             
+                
             </ul>
         </div>
     </div>

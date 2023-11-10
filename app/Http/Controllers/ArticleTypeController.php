@@ -91,32 +91,34 @@ class ArticleTypeController extends Controller
      */
     public function update(Request $request, ArticleType $articleType)
     {
-
-        // $validatedData = $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:admins,email,' . $admin->id,
-        //     'phone' => 'required|numeric',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp', // Adjust validation rules as needed
-        // ]);
-
-        // Upload and store the image
         $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/articleType'), $imageName);
 
+        if ($image) {
+            // If a new image is provided, process it
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/articleType'), $imageName);
 
-        $articleType->update([
-            'type' => $request->type,
-            'description' => $request->description,
-            'image' => $imageName,
-        ]);
+            // Update the articleType with the new image name
+            $articleType->update([
+                'type' => $request->type,
+                'description' => $request->description,
+                'image' => $imageName,
+            ]);
+        } else {
+            // If no new image is provided, update other fields without changing the existing image
+            $articleType->update([
+                'type' => $request->type,
+                'description' => $request->description,
+            ]);
+        }
 
         if (!$articleType->save()) {
             return redirect()->route('admin.articleType.index')->with('error', 'Error updating category.');
         }
 
-        return redirect()->route('admin.articleType.index')->with('success', 'category updated successfully');
-        }
+        return redirect()->route('admin.articleType.index')->with('success', 'Category updated successfully');
+    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -15,7 +15,8 @@
                             <div class="col-xl-2">
                                 <div class="mb-5">
                                     <img id="showImage" width="100px"
-                                        src="{{ $articleType->image == '' ? url('no-category-image.jpg') : asset($articleType->image) }}">
+                                        src="{{ $articleType->image == '' ? url('no-category-image.jpg') : asset('images/articleType/' . $articleType->image) }}">
+                                        
                                 </div>
                             </div>
                             <div class="col-xl-10">
@@ -46,7 +47,7 @@
                                             <span class="input-group-text mdi mdi-format-list-bulleted-type"
                                                 id="basic-addon1"></span>
                                         </div>
-                                        <textarea rows="5" class="form-control" name="description">{{ $articleType->description }}</textarea>
+                                        <textarea rows="5" class="form-control" name="description" required>{{ $articleType->description }} </textarea>
                                     </div>
                                 </div>
                             </div>

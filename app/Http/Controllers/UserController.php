@@ -109,35 +109,49 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,' . $user->id,
             'phone' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp', // Adjust validation rules as needed
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp', // Allow empty image field
+            'CV' => 'file|mimes:pdf,doc,docx', // Allow empty CV field
         ]);
 
-        // Upload and store the image
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/users'), $imageName);
+        // Check if a new image is provided
+        if ($request->hasFile('image')) {
+            // Upload and store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/users'), $imageName);
+        } else {
+            // No new image provided, use the existing one
+            $imageName = $user->image;
+        }
 
-        $cv = $request->file('CV');
-        $cvName = time() . '.' . $cv->getClientOriginalExtension();
-        $cv->move(public_path('cv/users'), $cvName);
-        // dd($request->file('CV'));
+        // Check if a new CV is provided
+        if ($request->hasFile('CV')) {
+            // Upload and store the new CV
+            $cv = $request->file('CV');
+            $cvName = time() . '.' . $cv->getClientOriginalExtension();
+            $cv->move(public_path('cv/users'), $cvName);
+        } else {
+            // No new CV provided, use the existing one
+            $cvName = $user->CV;
+        }
 
-
+        // Update the user with the new image and CV
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'image' => $imageName,
             'CV' => $cvName,
-
         ]);
 
         if (!$user->save()) {
             return redirect()->route('admin.users.index')->with('error', 'Error updating user.');
         }
 
-        return redirect()->route('admin.users.index')->with('success', 'user updated successfully');
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

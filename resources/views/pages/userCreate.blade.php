@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="row">
-                          
+
                             <div class="col-xl-6">
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium" for="">Email</label>
@@ -31,7 +31,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">@</span>
                                         </div>
-                                        <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                        <input required type="email" class="form-control" name="email"
+                                            value="{{ old('email') }}">
                                     </div>
                                 </div>
                             </div>
@@ -42,11 +43,12 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text mdi mdi-rename-box" id="mdi-rename-box"></span>
                                         </div>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                        <input required type="text" class="form-control" name="name"
+                                            value="{{ old('name') }}">
                                     </div>
                                 </div>
                             </div>
-                          
+
                             <div class="col-xl-6">
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Phone Number</label>
@@ -54,7 +56,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text mdi mdi-phone" id="basic-addon1"></span>
                                         </div>
-                                        <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                        <input required type="text" class="form-control" name="phone"
+                                            value="{{ old('phone') }}">
                                     </div>
                                 </div>
                             </div>
@@ -64,17 +67,17 @@
                                     <label class="text-dark font-weight-medium">CV</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text mdi mdi-phone" id="basic-addon1"></span>
+                                            <span class="input-group-text mdi mdi-file" id="basic-addon1"></span>
                                         </div>
-                                          <input type="file" class="form-control-file" id="CV" name="CV" accept=".pdf, .doc, .docx"
-                    required>
-                @error('CV')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                                        <input type="file" class="form-control-file" id="CV" name="CV"
+                                            accept=".pdf, .doc, .docx" required>
+                                        @error('CV')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                         <div class="row">
                             <div class="form-footer pt-5 border-top">

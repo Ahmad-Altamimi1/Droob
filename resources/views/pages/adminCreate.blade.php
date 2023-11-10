@@ -66,7 +66,7 @@
                                     <label class="text-dark font-weight-medium">password</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text mdi mdi-password" id="basic-addon1"></span>
+                                            <span class="input-group-text mdi mdi-key" id="basic-addon1"></span>
                                         </div>
                                         <input type="password" class="form-control" name="password"
                                             value="{{ old('phone') }}">

@@ -150,21 +150,31 @@ class AdminController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,' . $admin->id,
             'phone' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp', // Adjust validation rules as needed
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp', // Allow empty image field
         ]);
 
-        // Upload and store the image
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/admins'), $imageName);
+        // Check if a new image is provided
+        if ($request->hasFile('image')) {
+            // Upload and store the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/admins'), $imageName);
 
-
-        $admin->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'image' => $imageName,
-        ]);
+            // Update the admin with the new image
+            $admin->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'image' => $imageName,
+            ]);
+        } else {
+            // Update the admin without changing the image
+            $admin->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+        }
 
         if (!$admin->save()) {
             return redirect()->route('admin.admins.index')->with('error', 'Error updating admin.');
@@ -172,6 +182,7 @@ class AdminController extends Controller
 
         return redirect()->route('admin.admins.index')->with('success', 'Admin updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

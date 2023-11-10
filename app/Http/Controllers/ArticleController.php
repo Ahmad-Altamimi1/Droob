@@ -23,10 +23,10 @@ class ArticleController extends Controller
     function download($id)
     {
         $article = Article::findOrFail($id);
-        
-        $filePath = public_path('CV/users/'.$article->User->CV);
+
+        $filePath = public_path('CV/users/' . $article->User->CV);
         $fileName =
- $article->User->CV;;
+            $article->User->CV;;
 
         return response()->download($filePath, $fileName);
     }
@@ -49,7 +49,7 @@ class ArticleController extends Controller
     public function create()
     {
         $types = ArticleType::all();
-        return view('pages.articlesCreate',compact('types'));
+        return view('pages.articlesCreate', compact('types'));
     }
 
     /**
@@ -74,21 +74,21 @@ class ArticleController extends Controller
         $image1->move(public_path('images/articles'), $image1Name);
 
         $image2 = $request->file('image2');
-        if($image2) {
-    
+        if ($image2) {
 
-        $image2Name = time() . '.' . $image2->getClientOriginalExtension();
-        $image2->move(public_path('images/articles'), $image2Name);
+
+            $image2Name = time() . '.' . $image2->getClientOriginalExtension();
+            $image2->move(public_path('images/articles'), $image2Name);
         } else {
             $image2Name = null;
         }
         $image3 = $request->file('image3');
         if ($image2) {
 
-        $image3Name = time() . '.' . $image3->getClientOriginalExtension();
-        $image3->move(public_path('images/articles'), $image3Name);
-        }else{
-            $image3Name=null;
+            $image3Name = time() . '.' . $image3->getClientOriginalExtension();
+            $image3->move(public_path('images/articles'), $image3Name);
+        } else {
+            $image3Name = null;
         }
         // Create a new product with the image filename
         // dd($request->type);
@@ -127,7 +127,7 @@ class ArticleController extends Controller
     {
         $types = ArticleType::all();
         // $articles = Article::all();
-        return view('pages.articlesUpdate', compact('article','types'));
+        return view('pages.articlesUpdate', compact('article', 'types'));
     }
 
     /**
@@ -137,46 +137,91 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
+    // public function update(Request $request, Article $article)
+    // {
+
+
+    //     // Upload and store the image
+    //     $image1 = $request->file('image1');
+    //     $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
+    //     $image1->move(public_path('images/articles'), $imageName1);
+
+    //     $image2 = $request->file('image2');
+    //     $imageName2 = time() . '.' . $image2->getClientOriginalExtension();
+    //     $image2->move(public_path('images/articles'), $imageName2);
+
+    //     $image3 = $request->file('image3');
+    //     $imageName3 = time() . '.' . $image3->getClientOriginalExtension();
+    //     $image3->move(public_path('images/articles'), $imageName3);
+
+
+    //     $article->update([
+    //         'title' => $request->title,
+    //         'typeId' => $request->type,
+    //         // 'userId' => auth()->user()->id,
+    //         'description' => $request->description,
+    //         'image1' => $imageName1,
+    //         'image2' => $imageName2,
+    //         'image3' => $imageName3,
+    //     ]);
+
+
+    //     if (!$article->save()) {
+    //         return redirect()->route('admin.articles.index')->with('error', 'Error updating article.');
+    //     }
+
+    //     return redirect()->route('admin.articles.index')->with('success', 'article updated successfully');
+    // }
+
+
+
+
+
+
+
     public function update(Request $request, Article $article)
     {
-        // $validatedData = $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:admins,email,' . $admin->id,
-        //     'phone' => 'required|numeric',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp', // Adjust validation rules as needed
-        // ]);
+        // Validate if an image is selected before processing
+        $request->validate([
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
 
-        // Upload and store the image
-        $image1 = $request->file('image1');
-        $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
-        $image1->move(public_path('images/articles'), $imageName1);
+        // Check and process image1
+        if ($request->hasFile('image1')) {
+            $image1 = $request->file('image1');
+            $imageName1 = time() . '.' . $image1->getClientOriginalExtension();
+            $image1->move(public_path('images/articles'), $imageName1);
+            $article->update(['image1' => $imageName1]);
+        }
 
-        $image2 = $request->file('image2');
-        $imageName2 = time() . '.' . $image2->getClientOriginalExtension();
-        $image2->move(public_path('images/articles'), $imageName2);
+        // Check and process image2
+        if ($request->hasFile('image2')) {
+            $image2 = $request->file('image2');
+            $imageName2 = time() . '.' . $image2->getClientOriginalExtension();
+            $image2->move(public_path('images/articles'), $imageName2);
+            $article->update(['image2' => $imageName2]);
+        }
 
-        $image3 = $request->file('image3');
-        $imageName3 = time() . '.' . $image3->getClientOriginalExtension();
-        $image3->move(public_path('images/articles'), $imageName3);
+        // Check and process image3
+        if ($request->hasFile('image3')) {
+            $image3 = $request->file('image3');
+            $imageName3 = time() . '.' . $image3->getClientOriginalExtension();
+            $image3->move(public_path('images/articles'), $imageName3);
+            $article->update(['image3' => $imageName3]);
+        }
 
-
+        // Update other fields
         $article->update([
             'title' => $request->title,
             'typeId' => $request->type,
-            // 'userId' => auth()->user()->id,
             'description' => $request->description,
-            'iamge1' => $imageName1,
-            'iamge2' => $imageName2,
-            'iamge3' => $imageName3,
         ]);
 
-
-        if (!$article->save()) {
-            return redirect()->route('admin.articles.index')->with('error', 'Error updating article.');
-        }
-
-        return redirect()->route('admin.articles.index')->with('success', 'article updated successfully');
+        return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
