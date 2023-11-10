@@ -22,9 +22,9 @@ Make sure you have the following installed:
 2. Run migrations: `php artisan migrate`
 
 ## Admin Dashboard
-1. Access the admin dashboard by visiting `/admin` in your browser.
+1. Access the admin dashboard by visiting `/admin/login` in your browser.
 2. Log in using the default admin credentials:
-   - Username: `admin@example.com`
+   - Username: `admin@droob.com`
    - Password: `password`
 
 ## Adding Articles
