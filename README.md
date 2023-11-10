@@ -19,7 +19,7 @@ Make sure you have the following installed:
 
 ## Database Setup
 1. Configure your database connection in the `.env` file.
-2. Run migrations: `php artisan migrate:fresh -seed`
+2. Run migrations: `php artisan migrate:fresh --seed`
 
 ## Admin Dashboard
 1. Access the admin dashboard by visiting `/admin/login` in your browser.
